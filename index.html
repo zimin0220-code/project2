@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리 반 행복 공간 🏫</title>
+    <style>
+        /* 기본 스타일 리셋 및 폰트 설정 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #73a5ff, #5477f5);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 섹션 공통 스타일 */
+        section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        section h2 {
+            font-size: 1.4rem;
+            color: #4a5568;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 0.5rem;
+        }
+
+        /* 폼 요소 스타일 */
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 0.8rem;
+        }
+
+        button {
+            background-color: #5477f5;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #3b5bdb;
+        }
+
+        /* 게시글 리스트 스타일 */
+        .post-list, .opinion-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .post-item {
+            border-bottom: 1px solid #edf2f7;
+            padding: 1rem 0;
+        }
+
+        .post-item:last-child {
+            border-bottom: none;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        /* 한줄 의견 스타일 */
+        .opinion-item {
+            background: #f7fafc;
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .opinion-text {
+            flex: 1;
+        }
+
+        .opinion-author {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🏫 우리 반 행복 공간</h1>
+        <p>사진을 공유하고, 자유롭게 이야기를 나누는 우리들만의 공간입니다.</p>
+    </header>
+
+    <main>
+        <!-- 1. 글쓰기 및 사진 업로드 섹션 -->
+        <section id="write-section">
+            <h2>✍️ 오늘의 이야기 & 사진 올리기</h2>
+            <input type="text" id="post-author" placeholder="작성자 이름 (예: 홍길동)">
+            <textarea id="post-content" placeholder="친구들과 나누고 싶은 이야기를 적어주세요."></textarea>
+            <div>
+                <label for="post-file" style="display:block; margin-bottom: 0.5rem; font-weight: bold;">📸 사진 첨부 (선택):</label>
+                <input type="file" id="post-file" accept="image/*">
+            </div>
+            <button onclick="addPost()">등록하기</button>
+        </section>
+
+        <!-- 2. 게시판 목록 섹션 -->
+        <section id="board-section">
+            <h2>📋 우리 반 게시판</h2>
+            <ul id="post-list" class="post-list">
+                <!-- 게시글이 여기에 동적으로 추가됩니다 -->
+                <li class="post-item">
+                    <div class="post-header">
+                        <span>💡 선생님</span>
+                    </div>
+                    <p>우리 반 홈페이지에 온 것을 환영합니다! 멋진 사진과 글 많이 남겨주세요 예약된 글입니다.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 3. 자유 의견 공유 (한줄 방명록) 섹션 -->
+        <section id="opinion-section">
+            <h2>💬 실시간 한줄 의견 공유</h2>
+            <div style="display: flex; gap: 0.5rem;">
+                <input type="text" id="opinion-author" placeholder="이름" style="width: 25%; margin-bottom: 0;">
+                <input type="text" id="opinion-input" placeholder="자유로운 의견이나 한줄 인사를 남겨주세요!" style="width: 60%; margin-bottom: 0;">
+                <button onclick="addOpinion()" style="width: 15%;">남기기</button>
+            </div>
+            <ul id="opinion-list" class="opinion-list">
+                <!-- 의견이 여기에 동적으로 추가됩니다 -->
+                <li class="opinion-item">
+                    <span class="opinion-text">오늘 급식 마라탕 나와서 너무 좋아요!</span>
+                    <span class="opinion-author">김민지</span>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        // 게시글 추가 함수
+        function addPost() {
+            const authorInput = document.getElementById('post-author');
+            const contentInput = document.getElementById('post-content');
+            const fileInput = document.getElementById('post-file');
+            const postList = document.getElementById('post-list');
+
+            if (!authorInput.value.trim() || !contentInput.value.trim()) {
+                alert('이름과 내용을 모두 입력해주세요!');
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.className = 'post-item';
+
+            // 헤더 (이름)
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'post-header';
+            headerDiv.innerHTML = `<span>👤 ${escapeHtml(authorInput.value)}</span>`;
+            li.appendChild(headerDiv);
+
+            // 본문 내용
+            const p = document.createElement('p');
+            p.innerText = contentInput.value;
+            li.appendChild(p);
+
+            // 사진 첨부 처리
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'post-image';
+                    li.appendChild(img);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+
+            // 최신글이 위로 오도록 추가
+            postList.insertBefore(li, postList.firstChild);
+
+            // 입력창 초기화
+            authorInput.value = '';
+            contentInput.value = '';
+            fileInput.value = '';
+        }
+
+        // 한줄 의견 추가 함수
+        function addOpinion() {
+            const authorInput = document.getElementById('opinion-author');
+            const opinionInput = document.getElementById('opinion-input');
+            const opinionList = document.getElementById('opinion-list');
+
+            if (!authorInput.value.trim() || !opinionInput.value.trim()) {
+                alert('이름과 의견을 모두 입력해주세요!');
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.className = 'opinion-item';
+            li.innerHTML = `
+                <span class="opinion-text">${escapeHtml(opinionInput.value)}</span>
+                <span class="opinion-author">${escapeHtml(authorInput.value)}</span>
+            `;
+
+            // 최신 의견이 위로 오도록 추가
+            opinionList.insertBefore(li, opinionList.firstChild);
+
+            // 입력창 초기화
+            authorInput.value = '';
+            opinionInput.value = '';
+        }
+
+        // 보안을 위한 HTML 태그 무력화 함수 (XSS 방지)
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
